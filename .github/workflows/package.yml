@@ -1,0 +1,47 @@
+name: Package
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate app before packaging
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmagic1
+          pip install --upgrade pip splunk-appinspect
+          splunk-appinspect inspect darkmoon --mode precert --output-file report.json --data-format json
+          python - <<'PY'
+          import json, sys
+          r = json.load(open("report.json"))
+          bad = sum(
+              1
+              for rep in r.get("reports", [])
+              for g in rep.get("groups", [])
+              for c in g.get("checks", [])
+              if c.get("result") in ("error", "failure", "future_failure")
+          )
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Build tarball
+        run: bash scripts/package.sh
+
+      - name: Create release and attach tarball
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/darkmoon-*.tar.gz
+          generate_release_notes: true

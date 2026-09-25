@@ -1,0 +1,53 @@
+name: AppInspect
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  appinspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install libmagic + AppInspect
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmagic1
+          pip install --upgrade pip
+          pip install splunk-appinspect
+
+      - name: Run AppInspect (precert)
+        run: |
+          splunk-appinspect inspect darkmoon \
+            --mode precert \
+            --output-file appinspect-report.json \
+            --data-format json
+
+      - name: Fail on errors or failures
+        run: |
+          python - <<'PY'
+          import json, sys
+          r = json.load(open("appinspect-report.json"))
+          bad = 0
+          for rep in r.get("reports", []):
+              for g in rep.get("groups", []):
+                  for c in g.get("checks", []):
+                      if c.get("result") in ("error", "failure", "future_failure"):
+                          print("::error::%s -> %s" % (c["name"], c["result"]))
+                          bad += 1
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appinspect-report
+          path: appinspect-report.json
