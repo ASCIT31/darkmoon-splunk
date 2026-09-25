@@ -155,17 +155,19 @@ def pr_event(p):
 
 
 def _envelope(sourcetype, safe_event, ts, host="darkmoon"):
-    fields = {k: safe_event[k] for k in INDEX_FIELDS if k in safe_event}
-    env = {
+    # NOTE: we deliberately do NOT populate the HEC "fields" (indexed fields)
+    # object. Every safe field already lives in the JSON "event" and is
+    # extracted at search time via KV_MODE=json (props.conf). Promoting the same
+    # keys to indexed fields would make them multivalued (indexed + extracted),
+    # which breaks table/stats rendering. Search-time extraction is sufficient
+    # for this app; INDEX_FIELDS is kept only for documentation.
+    return {
         "time": to_epoch(ts),
         "host": scrub(str(host)),
         "source": "darkmoon",
         "sourcetype": sourcetype,
         "event": safe_event,
     }
-    if fields:
-        env["fields"] = fields
-    return env
 
 
 def build_events(data):

@@ -17,7 +17,7 @@
       <title>Campaigns</title>
       <table>
         <search>
-          <query>`darkmoon_campaigns` | stats latest(status) as status latest(overall_risk) as risk latest(target) as target latest(project_id) as project latest(stats.total_findings) as findings latest(stats.critical) as critical latest(stats.high) as high latest(stats.exploited) as exploited latest(duration_seconds) as duration_s latest(_time) as last by campaign_id | eval last=strftime(last,"%F %T"), duration_min=round(duration_s/60,1) | table campaign_id target project last duration_min risk findings critical high exploited status | sort - last</query>
+          <query>`darkmoon_campaigns` | stats latest(status) as status latest(overall_risk) as risk latest(target) as target latest(project_id) as project latest(total_findings) as findings latest(critical) as critical latest(high) as high latest(exploited) as exploited latest(duration_seconds) as duration_s latest(_time) as last by campaign_id | eval last=strftime(last,"%F %T"), duration_min=round(duration_s/60,1) | table campaign_id target project last duration_min risk findings critical high exploited status | sort - last</query>
           <earliest>$tr.earliest$</earliest>
           <latest>$tr.latest$</latest>
         </search>
