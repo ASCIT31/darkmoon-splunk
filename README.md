@@ -1,6 +1,6 @@
 # Darkmoon Pentest — Splunk App
 
-> **📦 Marketplace status:** Submitted to [Splunkbase](https://splunkbase.splunk.com/app/9875) — **pending approval** (Splunk review, up to 5 business days). Meanwhile, install the `.tar.gz` from [Releases](https://github.com/ASCIT31/darkmoon-splunk/releases).
+> **📦 Marketplace status:** Submitted to Splunkbase (app 9875) — **pending approval** (Splunk review, up to 5 business days). Meanwhile, install the `.tar.gz` from [Releases](https://github.com/ASCIT31/darkmoon-splunk/releases).
 
 SOC ingestion for **Darkmoon** AI pentest results over the HTTP Event Collector, plus an
 **offensive-validation loop** that triggers a Darkmoon retest/campaign straight from a Splunk
@@ -67,8 +67,9 @@ remediation rate), findings over time, severity/status distributions, top exploi
 
 ## Install
 
-1. Splunkbase: **Apps → Find More Apps → search "Darkmoon Pentest" → Install**, or upload the
-   `.spl`/`.tar.gz` via **Apps → Manage Apps → Install app from file**.
+1. Download the `.spl`/`.tar.gz` from [Releases](https://github.com/ASCIT31/darkmoon-splunk/releases) and
+   upload it via **Apps → Manage Apps → Install app from file**. Once approved (app 9875, pending), you will
+   also be able to install it from Splunkbase: **Apps → Find More Apps → search "Darkmoon Pentest" → Install**.
 2. Restart Splunk if prompted.
 3. Open **Manage Apps → Darkmoon Pentest → Set up** to store the Darkmoon Pro base URL and API
    token (needed only for the alert action; ingestion and dashboards work without it).
