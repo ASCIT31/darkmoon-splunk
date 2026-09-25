@@ -1,5 +1,7 @@
 # Darkmoon Pentest — Splunk App
 
+> **📦 Marketplace status:** Submitted to [Splunkbase](https://splunkbase.splunk.com/app/9875) — **pending approval** (Splunk review, up to 5 business days). Meanwhile, install the `.tar.gz` from [Releases](https://github.com/ASCIT31/darkmoon-splunk/releases).
+
 SOC ingestion for **Darkmoon** AI pentest results over the HTTP Event Collector, plus an
 **offensive-validation loop** that triggers a Darkmoon retest/campaign straight from a Splunk
 correlation search. Ships CIM-aligned sourcetypes, six SOC dashboards, and a hard-secured
