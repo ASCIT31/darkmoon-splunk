@@ -166,3 +166,18 @@ telemetry notice and the generic "python file present" notice). Report: `docs/ap
 ## License
 
 MIT © 2026 ASC-IT (SARL) / Darkmoon. See [LICENSE](LICENSE).
+
+## 🎥 Video tutorial
+
+[![Watch the Darkmoon + Splunk tutorial on YouTube](https://img.youtube.com/vi/8w2i8nEBdQQ/maxresdefault.jpg)](https://youtu.be/8w2i8nEBdQQ)
+
+▶ **[Watch the full Darkmoon + Splunk tutorial on YouTube](https://youtu.be/8w2i8nEBdQQ)** — real setup, end to end.
+
+## Darkmoon ecosystem
+
+Darkmoon is an open-source, AI-powered penetration testing platform. It runs a full autonomous assessment and this integration brings the results into your Splunk workflow.
+
+- ⭐ **Flagship (star it):** https://github.com/ASCIT31/Dark-Moon
+- 📚 **Docs:** https://docs.dark-moon.org
+- 🌐 **Website:** https://dark-moon.org
+- 🔗 **Related integrations:** [Grafana](https://github.com/ASCIT31/darkmoon-grafana) 
